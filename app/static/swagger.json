@@ -77,6 +77,65 @@
 
         }
       }
+    },
+
+
+    "/analytics/sales-by-region": {
+      "get": {
+        "summary": "Obtener ventas por región",
+        "description": "Devuelve la suma de ventas por cada región usando SQL Server.",
+        "tags": [
+          "Indicadores Analíticos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Cálculo realizado correctamente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "indicator": {
+                  "type": "string",
+                  "example": "sales_by_region"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Ventas por Región"
+                },
+                "chart_type": {
+                  "type": "string",
+                  "example": "bar"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "region": {
+                        "type": "string",
+                        "example": "Lima"
+                      },
+                      "sales": {
+                        "type": "number",
+                        "example": 2050.5
+                      }
+                    }
+                  }
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "SQL Server"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
     }
 
 

@@ -1,36 +1,22 @@
-from app.repositories.mongodb.sales_repository import SalesRepository
+from app.repositories.sqlserver.sales_repository import SalesRepository
+from app.schemas.analytics_schema import IndicatorResponse
 
 
-
-
-class AnalyticsService:
+class SalesService:
 
 
     def __init__(self):
-
-
         self.repository = SalesRepository()
 
 
-    def calculate_total_sales(self):
-
-
-        sales = self.repository.get_all_sales()
-
-
-        total = 0
-
-
-        for sale in sales:
-
-
-            total += sale["total_amount"]
-
-
-
-
-        return {
-            "indicator_name": "Total Sales",
-            "total_sales": total,
-            "currency": "PEN"
-        }
+    def total_sales(self):
+        result = self.repository.get_total_sales()
+        return IndicatorResponse(
+            indicator="sales_total",
+            title="Ventas Totales",
+            chart_type="card",
+            data=result,
+            sources=[
+                "SQL Server"
+            ]
+        )
