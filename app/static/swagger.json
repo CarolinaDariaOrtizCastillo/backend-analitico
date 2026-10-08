@@ -136,6 +136,77 @@
           }
         }
       }
+    },
+    "/analytics/top-product": {
+      "get": {
+        "summary": "Obtener el producto más vendido del mes",
+        "description": "Integra la cantidad vendida desde SQL Server con los datos maestros del producto en MongoDB.",
+        "tags": [
+          "Indicadores Analíticos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Indicador calculado correctamente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "indicator": {
+                  "type": "string",
+                  "example": "top_product_month"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Producto más vendido del mes"
+                },
+                "chart_type": {
+                  "type": "string",
+                  "example": "card"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "product_id": {
+                      "type": "string",
+                      "example": "P001"
+                    },
+                    "product": {
+                      "type": "string",
+                      "example": "Producto de ejemplo"
+                    },
+                    "category": {
+                      "type": "string",
+                      "example": "Categoría de ejemplo"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "example": 150
+                    }
+                  }
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "SQL Server",
+                    "MongoDB"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontró información del producto más vendido"
+          },
+          "503": {
+            "description": "No se pudo conectar con MongoDB Atlas"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
     }
 
 

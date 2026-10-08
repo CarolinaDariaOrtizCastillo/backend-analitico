@@ -1,5 +1,6 @@
 from app.database.sqlserver import get_sqlserver_connection	
-class SalesRepository:
+
+class BestProductRepository:
     def get_top_product(self):
         connection = get_sqlserver_connection()
         try:
@@ -20,22 +21,7 @@ class SalesRepository:
         if result:
             return {
                 "product_id": result[0],
-                "quantity": result[1],
+                "quantity": result[1]
             }
         return None
 
-    def get_total_sales(self):
-        connection = get_sqlserver_connection()
-        try:
-            cursor = connection.cursor()
-            query = """
-            SELECT
-                SUM(total_amount)
-            FROM sales
-            """
-            cursor.execute(query)
-            result = cursor.fetchone()
-        finally:
-            connection.close()
-
-        return result[0]
